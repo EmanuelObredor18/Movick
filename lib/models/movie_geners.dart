@@ -1,0 +1,4 @@
+enum MovieSection {
+  popular,
+  terror
+}
