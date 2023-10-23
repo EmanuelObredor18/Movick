@@ -1,13 +1,11 @@
-import 'dart:developer';
 
-import 'package:app_peliculas/models/search_results.dart';
+import 'package:app_peliculas/search/list_view_results.dart';
 import 'package:app_peliculas/services/movie_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Search extends SearchDelegate {
 
-  ScrollController _scrollController = ScrollController();
 
   @override
   String? get searchFieldLabel => "Buscar películas";
@@ -67,41 +65,9 @@ class Search extends SearchDelegate {
     if (query.isEmpty) {
       return _emptyContainer();
     } 
-
-    
     final movieProvider = Provider.of<MovieProvider>(context);
-
-    return FutureBuilder(
-      future: movieProvider.getSearchMovies(query), 
-      builder: (_, AsyncSnapshot<List<Movie>> snapshot) {
-
-        List<Movie> movies = movieProvider.movies;
-
-        if (snapshot.hasData) {
-          return ListView.separated(
-            controller: _scrollController,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (_, index) => ListTile(
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: FadeInImage(
-                  placeholder: const AssetImage("assets/loading-bar.gif"), 
-                  image: movies[index].fullPosterImg != "" ? NetworkImage(movies[index].fullPosterImg)
-                  : AssetImage("assets/camera_placeholder.jpg") as ImageProvider,
-                  fit: BoxFit.fill,
-                  width: 40,
-                  height: 100,
-                ),
-              ),
-              title: Text(snapshot.data![index].title),
-            ), 
-            separatorBuilder: (__, ___) => const SizedBox(height: 10), 
-            itemCount: snapshot.data!.length
-          );
-        }
-        return _emptyContainer();
-      } ,
-    );
+    
+    return ListViewResults(movieProvider: movieProvider, query: query);
   }
 
   Widget _emptyContainer() {

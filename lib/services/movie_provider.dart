@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:app_peliculas/models/models.dart';
@@ -17,7 +16,7 @@ class MovieProvider extends ChangeNotifier{
   final String _baseUrl               = 'api.themoviedb.org';
   final String _language              = 'es-MX';
   final String _popularMoviesEndpoint = "/3/movie/popular";
-  final String _region                = "MX";
+  // final String _region                = "MX";
 
   //* Listas para las peliculas 
   
