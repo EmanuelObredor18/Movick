@@ -24,10 +24,14 @@ class MovieProvider extends ChangeNotifier{
   List<PopularMoviesResponse> popularMovies = [];
   List<PopularMoviesResponse> popularMoviesFull = [];
   Map<String, List<Cast>> actors = {};
+  List<Movie> movies = [];
   
   // Indicador de página para la petición de las peliculas populares
 
-  int _page = 0;
+  int _popularMoviesPage = 0;
+  int movieSearchPage = 1;
+
+  String lastQuery = "";
 
   // Constructor para lanzar peticiones al levantar la aplicación
 
@@ -58,8 +62,8 @@ class MovieProvider extends ChangeNotifier{
   getMovies({required bool infinite, required Enum movieSection}) async {
     if (infinite) {
       if (movieSection == MovieSection.popular) {
-        _page++;
-        final String response = await getJsonDataMovies(_popularMoviesEndpoint, _page.toString());
+        _popularMoviesPage++;
+        final String response = await getJsonDataMovies(_popularMoviesEndpoint, _popularMoviesPage.toString());
         final popularMoviesResponse = PopularMovies.fromRawJson(response);
         popularMoviesFull = [...popularMoviesFull.toList(), ...popularMoviesResponse.results];
         notifyListeners();
@@ -97,22 +101,24 @@ class MovieProvider extends ChangeNotifier{
 
   }
 
-  Future<List<Movie>> getSearchMovies(String query) async {
-    final url = Uri.https(_baseUrl, "/3/search/movie", {
-      "language" : _language,
-      "api_key"  : _apiKey,
-      "query"    : query
-    });
+  Future<List<Movie>> getSearchMovies(String query, {String page = "1"}) async {
+      final url = Uri.https(_baseUrl, "/3/search/movie", {
+        "language" : _language,
+        "api_key"  : _apiKey,
+        "query"    : query,
+        "page"     : page
+      });
+      final response = await http.get(url);
+      final searchResponse = SearchResults.fromRawJson(response.body);
+      movies = searchResponse.results;
+      notifyListeners();
+      return movies;
 
-    final response = await http.get(url);
-    final searchResponse = SearchResults.fromRawJson(response.body);
-    final List<Movie> searchResults = searchResponse.results;
-    return searchResults;
   }
 
 
   Future<void> refresh() async{
-    _page = 0;
+    _popularMoviesPage = 0;
     popularMovies = [];
     popularMoviesFull = [];
     getMovies(infinite: false, movieSection: MovieSection.popular);
