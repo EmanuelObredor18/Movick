@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:app_peliculas/models/interfaces/imovies.dart';
 import 'package:app_peliculas/models/popular_movies_response.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class MovieSlider extends StatefulWidget {
   });
   
   final String sectionName;
-  final List<PopularMoviesResponse> moviesProvider;
+  final List<IMovie> moviesProvider;
   final Function onNextPage;
   
 
@@ -105,7 +106,7 @@ class _MovieSliderState extends State<MovieSlider> {
                               width: 140,
                               placeholder: const AssetImage("assets/loading-bar.gif"),
                               image: NetworkImage(
-                                widget.moviesProvider[index].fullUrlImage
+                                widget.moviesProvider[index].getFullImgUrl()
                               )
                             ),
                           ),
@@ -115,7 +116,7 @@ class _MovieSliderState extends State<MovieSlider> {
                         height: 10,
                       ),
                       Text(
-                        widget.moviesProvider[index].title,
+                        widget.moviesProvider[index].getTitle(),
                         overflow: TextOverflow.clip,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,

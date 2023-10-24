@@ -1,6 +1,4 @@
 import 'package:app_peliculas/models/actors_response.dart';
-import 'package:app_peliculas/models/popular_movies_response.dart';
-import 'package:app_peliculas/models/search_results.dart';
 import 'package:app_peliculas/services/movie_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +23,6 @@ class DetailsScreen extends StatelessWidget {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
-                title: const Text("Detalles"),
                 background: ClipRRect(
                   borderRadius: const BorderRadius.vertical(bottom: Radius.circular(15)),
                   clipBehavior: Clip.antiAlias,
@@ -74,7 +71,7 @@ class ActorsSwiper extends StatelessWidget {
     super.key,
   });
 
-  final PopularMoviesResponse movie;
+  final dynamic movie;
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +155,7 @@ class Header extends StatelessWidget {
     super.key,
   });
 
-  final PopularMoviesResponse movie;
+  final dynamic movie;
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +205,7 @@ class Overview extends StatelessWidget {
     super.key,
   });
 
-  final PopularMoviesResponse movie;
+  final dynamic movie;
 
   @override
   Widget build(BuildContext context) {

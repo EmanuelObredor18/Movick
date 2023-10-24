@@ -50,15 +50,15 @@ class _ListViewResultsState extends State<ListViewResults> {
     return ListView.separated(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
-        itemBuilder: (_, index) => ListTile(
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: GestureDetector(
-              onTap: () => Navigator.pushNamed(
-                context, 
-                '/DetailsScreen',
-                arguments: {'movies' : movies[index]}
-              ),
+        itemBuilder: (_, index) => GestureDetector(
+          onTap: () => Navigator.pushNamed(
+            context, 
+            '/DetailsScreen',
+            arguments: {'movies' : movies[index]}
+          ),
+          child: ListTile(
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
               child: FadeInImage(
                 placeholder: const AssetImage("assets/loading-bar.gif"), 
                 image: movies[index].fullUrlImage != "" ? NetworkImage(movies[index].fullUrlImage)
@@ -68,8 +68,8 @@ class _ListViewResultsState extends State<ListViewResults> {
                 height: 100,
               ),
             ),
+            title: Text(movies[index].title),
           ),
-          title: Text(movies[index].title),
         ), 
         separatorBuilder: (__, ___) => const SizedBox(height: 10), 
         itemCount: movies.length

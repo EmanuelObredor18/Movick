@@ -17,11 +17,19 @@ class Search extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
+      hintColor: Colors.white54,
       appBarTheme: const AppBarTheme(
         elevation: 0,
         foregroundColor: Colors.white,
-        color: Colors.blueGrey
-      )
+        color: Colors.blueGrey,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white
+          ),
+        )
+      ),
     );
   }
 
@@ -35,9 +43,11 @@ class Search extends SearchDelegate {
 
   @override
   InputDecorationTheme? get searchFieldDecorationTheme {
-    return InputDecorationTheme(
-      hintStyle: TextStyle(
-        color: Colors.white
+    return InputDecorationTheme(  
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.white54,
+        )
       )
     );
   }

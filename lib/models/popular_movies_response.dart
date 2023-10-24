@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:app_peliculas/models/interfaces/imovies.dart';
+
 //* Mapping of json response
 
 class PopularMovies {
@@ -34,7 +36,7 @@ class PopularMovies {
     };
 }
 
-class PopularMoviesResponse {
+class PopularMoviesResponse implements IMovie{
     bool adult;
     String backdropPath;
     List<int> genreIds;
@@ -106,4 +108,54 @@ class PopularMoviesResponse {
     };
 
     get fullUrlImage => "https://image.tmdb.org/t/p/w500/$posterPath";
+    
+      @override
+      bool getAdult() {
+        return adult;
+      }
+    
+      @override
+      String getBackdropPath() {
+        return backdropPath;
+      }
+    
+      @override
+      String getFullImgUrl() {
+        return fullUrlImage;
+      }
+    
+      @override
+      int getId() {
+        return id;
+      }
+    
+      @override
+      String getOriginalLanguage() {
+        return originalLanguage;
+      }
+    
+      @override
+      String getOriginalTitle() {
+        return originalTitle;
+      }
+    
+      @override
+      String getOverview() {
+        return overview;
+      }
+    
+      @override
+      double getPopularity() {
+        return popularity;
+      }
+      
+    @override
+    String getTitle() {
+      return title;
+    }
+    
+    @override
+    double getVoteAverage() {
+      return getVoteAverage();
+    }
 }
