@@ -7,6 +7,7 @@ class ListViewResults extends StatefulWidget {
 
   final MovieProvider movieProvider;
   final String query;
+  
 
   @override
   State<ListViewResults> createState() => _ListViewResultsState();
@@ -15,6 +16,7 @@ class ListViewResults extends StatefulWidget {
 
 class _ListViewResultsState extends State<ListViewResults> {
 
+  List<Movie> movies = [];
   ScrollController _scrollController = ScrollController();
 
   @override
@@ -27,12 +29,14 @@ class _ListViewResultsState extends State<ListViewResults> {
       double? maxScrollTemp;
 
       if (scrollPosition >= maxScroll - 100) {
-        if (maxScrollTemp != maxScroll) {
+        if (maxScrollTemp == maxScroll) {
           return;
         } else {
-          widget.movieProvider.getSearchMovies(widget.query, page: widget.movieProvider.movieSearchPage.toString());
-          widget.movieProvider.movieSearchPage++;
-          maxScrollTemp = maxScroll;
+          if (widget.movieProvider.hasMoreResults) {
+            widget.movieProvider.getSearchMovies(widget.query, page: widget.movieProvider.movieSearchPage.toString());
+            widget.movieProvider.movieSearchPage++;
+            maxScrollTemp = maxScroll;
+          }
         }
       }
     });
@@ -40,23 +44,29 @@ class _ListViewResultsState extends State<ListViewResults> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: widget.movieProvider.getSearchMovies(widget.query),
-      builder: (context, snapshot) {
-        List<Movie> movies = snapshot.data ?? [];
-        return ListView.separated(
+
+    movies = widget.movieProvider.movies;
+
+    return ListView.separated(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (_, index) => ListTile(
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: FadeInImage(
-              placeholder: const AssetImage("assets/loading-bar.gif"), 
-              image: movies[index].fullPosterImg != "" ? NetworkImage(movies[index].fullPosterImg)
-              : AssetImage("assets/camera_placeholder.jpg") as ImageProvider,
-              fit: BoxFit.fill,
-              width: 40,
-              height: 100,
+            child: GestureDetector(
+              onTap: () => Navigator.pushNamed(
+                context, 
+                '/DetailsScreen',
+                arguments: {'movies' : movies[index]}
+              ),
+              child: FadeInImage(
+                placeholder: const AssetImage("assets/loading-bar.gif"), 
+                image: movies[index].fullUrlImage != "" ? NetworkImage(movies[index].fullUrlImage)
+                : AssetImage("assets/camera_placeholder.jpg") as ImageProvider,
+                fit: BoxFit.fill,
+                width: 40,
+                height: 100,
+              ),
             ),
           ),
           title: Text(movies[index].title),
@@ -64,7 +74,6 @@ class _ListViewResultsState extends State<ListViewResults> {
         separatorBuilder: (__, ___) => const SizedBox(height: 10), 
         itemCount: movies.length
       );
-      }
-    );
   }
-}
+    
+  }

@@ -32,6 +32,8 @@ class MovieProvider extends ChangeNotifier{
 
   String lastQuery = "";
 
+  bool hasMoreResults = true;
+
   // Constructor para lanzar peticiones al levantar la aplicación
 
   MovieProvider() {
@@ -100,19 +102,48 @@ class MovieProvider extends ChangeNotifier{
 
   }
 
-  Future<List<Movie>> getSearchMovies(String query, {String page = "1"}) async {
+  getSearchResults(String query, {String page = "1"}) async{
       final url = Uri.https(_baseUrl, "/3/search/movie", {
         "language" : _language,
         "api_key"  : _apiKey,
         "query"    : query,
         "page"     : page
-      });
-      final response = await http.get(url);
+    });
+
+    
+    try {
+    final response = await http.get(url);
       final searchResponse = SearchResults.fromRawJson(response.body);
+      return searchResponse;
+    } catch (e, stackTrace) {
+      log('Error en la solicitud HTTP: $e');
+      log('StackTrace: $stackTrace');
+    }
+  }
+
+
+  Future<List<Movie>> getSearchMovies(String query, {String page = "1"}) async {
+
+    if (query == lastQuery) {
+      final searchResponse = await getSearchResults(query, page: page); 
+      if (searchResponse.results.isEmpty) {
+        hasMoreResults = false;
+        notifyListeners();
+      } else {
+        movies = [...movies, ...searchResponse.results];
+        notifyListeners();
+      }
+      return movies;
+    } else {
+      final searchResponse = await getSearchResults(query, page: page);
+      query = lastQuery;
+      movieSearchPage = 1;
+      movies = [];
       movies = searchResponse.results;
+      hasMoreResults = true;
       notifyListeners();
       return movies;
-
+    }
   }
 
 

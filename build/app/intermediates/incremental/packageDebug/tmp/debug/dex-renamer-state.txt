@@ -1,4 +1,4 @@
-#Wed Oct 18 22:36:42 COT 2023
-base.0=/home/emanuel/Desarollo/Apps/app_peliculas/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-path.0=classes.dex
+#Sun Oct 22 22:40:48 COT 2023
+base.0=C\:\\Users\\obred\\Documents\\GitHub\\Movick\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
+path.0=classes.dex

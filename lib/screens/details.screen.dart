@@ -1,5 +1,6 @@
 import 'package:app_peliculas/models/actors_response.dart';
 import 'package:app_peliculas/models/popular_movies_response.dart';
+import 'package:app_peliculas/models/search_results.dart';
 import 'package:app_peliculas/services/movie_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,7 @@ class DetailsScreen extends StatelessWidget {
 
     final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     
-    final PopularMoviesResponse movie = args['movies'] as PopularMoviesResponse;
+    final dynamic movie = args['movies'] as dynamic;
 
     return Scaffold(
       body: SafeArea(

@@ -1,4 +1,5 @@
 
+import 'package:app_peliculas/models/search_results.dart';
 import 'package:app_peliculas/search/list_view_results.dart';
 import 'package:app_peliculas/services/movie_provider.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +7,12 @@ import 'package:provider/provider.dart';
 
 class Search extends SearchDelegate {
 
+  @override
+  Animation<double> get transitionAnimation => CurvedAnimation(parent: transitionAnimation, curve: Curves.easeIn);
 
   @override
   String? get searchFieldLabel => "Buscar películas";
+  
   
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -67,7 +71,17 @@ class Search extends SearchDelegate {
     } 
     final movieProvider = Provider.of<MovieProvider>(context);
     
-    return ListViewResults(movieProvider: movieProvider, query: query);
+    if (movieProvider.movies.isEmpty || query != movieProvider.lastQuery) {
+      return FutureBuilder(
+        future: movieProvider.getSearchMovies(query), 
+        builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
+          movieProvider.lastQuery = query;
+          return ListViewResults(movieProvider: movieProvider, query: query);
+        },
+      );
+    } else {
+      return ListViewResults(movieProvider: movieProvider, query: query);
+    }
   }
 
   Widget _emptyContainer() {

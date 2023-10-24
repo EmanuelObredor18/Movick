@@ -42,7 +42,7 @@ class Movie {
     String overview;
     double popularity;
     String? posterPath;
-    DateTime releaseDate;
+    DateTime? releaseDate;
     String title;
     bool video;
     double voteAverage;
@@ -69,22 +69,36 @@ class Movie {
 
     String toRawJson() => json.encode(toJson());
 
-    factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-        adult: json["adult"],
-        backdropPath: json["backdrop_path"] ?? "",
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
-        originalLanguage: json["original_language"],
-        originalTitle: json["original_title"],
-        overview: json["overview"],
-        popularity: json["popularity"]?.toDouble(),
-        posterPath: json["poster_path"],
-        releaseDate: DateTime.parse(json["release_date"]),
-        title: json["title"],
-        video: json["video"],
-        voteAverage: json["vote_average"]?.toDouble(),
-        voteCount: json["vote_count"],
+    factory Movie.fromJson(Map<String, dynamic> json) {
+    DateTime? releaseDate;
+
+    // Verificar si la cadena de fecha es válida antes de intentar convertirla
+    if (json["release_date"] != null) {
+      try {
+        releaseDate = DateTime.parse(json["release_date"]);
+      } catch (e) {
+        // Manejar el error o simplemente asignar null si no se puede convertir
+        releaseDate = null;
+      }
+    }
+
+    return Movie(
+      adult: json["adult"],
+      backdropPath: json["backdrop_path"] ?? "",
+      genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
+      id: json["id"],
+      originalLanguage: json["original_language"],
+      originalTitle: json["original_title"],
+      overview: json["overview"],
+      popularity: json["popularity"]?.toDouble(),
+      posterPath: json["poster_path"],
+      releaseDate: releaseDate,
+      title: json["title"],
+      video: json["video"],
+      voteAverage: json["vote_average"]?.toDouble(),
+      voteCount: json["vote_count"],
     );
+  }
 
     Map<String, dynamic> toJson() => {
         "adult": adult,
@@ -96,12 +110,12 @@ class Movie {
         "overview": overview,
         "popularity": popularity,
         "poster_path": posterPath,
-        "release_date": "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+        "release_date": "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}",
         "title": title,
         "video": video,
         "vote_average": voteAverage,
         "vote_count": voteCount,
     };
 
-    get fullPosterImg => posterPath == null ? "" : "https://image.tmdb.org/t/p/w500/$posterPath";
+    get fullUrlImage => posterPath == null ? "" : "https://image.tmdb.org/t/p/w500/$posterPath";
 }

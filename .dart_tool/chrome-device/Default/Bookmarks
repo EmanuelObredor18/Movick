@@ -1,0 +1,100 @@
+{
+   "checksum": "f82d02af5f523633be927c206c6caf26",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13236666153493299",
+            "date_last_used": "13339999775149592",
+            "guid": "221d044d-d747-4c6d-ad91-4ecc036939ce",
+            "id": "8",
+            "name": "YouTube",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.youtube.com/"
+         }, {
+            "date_added": "13308630789368082",
+            "date_last_used": "13335741749719834",
+            "guid": "a7d1cc7b-564e-4846-a25f-cb29dcab24da",
+            "id": "9",
+            "name": "GitHub",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://github.com/"
+         }, {
+            "date_added": "13317509549848635",
+            "date_last_used": "0",
+            "guid": "ccae47a4-9680-48e9-9f74-dbebb05e38ec",
+            "id": "10",
+            "name": "Palette List",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://lospec.com/palette-list"
+         }, {
+            "date_added": "13318995928342742",
+            "date_last_used": "0",
+            "guid": "c56177de-ea86-44fb-8d02-088fa27add44",
+            "id": "11",
+            "name": "Portal Ciudadano - Identifícate",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://portalciudadano.sisben.gov.co/Home/Login"
+         }, {
+            "date_added": "13320902558029831",
+            "date_last_used": "0",
+            "guid": "e26e361a-0f3a-44c2-83ed-5543ecde9a15",
+            "id": "12",
+            "name": "Portail Client",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www-eni-training-com.bdigital.sena.edu.co/portal/auth/login?cfgbdd=sena&cfgsite=Default&idlng=6"
+         } ],
+         "date_added": "13342580075317350",
+         "date_last_used": "0",
+         "date_modified": "13320902558029831",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Barra de favoritos",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13342580075317355",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Otros favoritos",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [ {
+            "date_added": "13293514044461494",
+            "date_last_used": "0",
+            "guid": "99c7b232-7654-465b-aedf-f069ed1f6a0a",
+            "id": "7",
+            "name": "Rush E - YouTube",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.youtube.com/watch?v=0J4NKoOlUeo"
+         } ],
+         "date_added": "13342580075317356",
+         "date_last_used": "0",
+         "date_modified": "13293514044461494",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Favoritos móviles",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CjEKDgiIgQISCE+bdl+LAQAAEgAgASoYUFQ2YVR2VG1CbldScGhqSXRQeUZvZz09oAYMEokBCAEShAEKHHl4Si82ZnZrZWNyN2twNUVRekI0dFdMcGRiRT0SJGMwZGZhZGEyLTdjZGYtNTRmOC1iOGVjLTY3ZTJmOWExYzFkZBgAIAAoADDGiKLYjjE4/fucr7EwQP37nK+xMEocYVJDV0xnaEY5YjVJbnFLSUR2dUovanZRa0ZjPVoAZQAAAAASpwEIBxKiAQocTkV6Zyt5WWp2NGJ5TG1wQVdhdzB1TzNRZVBRPRIkOTljN2IyMzItNzY1NC00NjViLWFlZGYtZjA2OWVkMWY2YTBhGAAgACgAMJ2B9ojxMDiHg/aI8TBAh4P2iPEwShw2end0QkdEN0IveDEyVFRsclNuMUVSeG1LMTg9Wh4iHHZ4NThMc2tXVXFkV1FaeEFCQm4zOXRZbm0zUT1lAAAAABKJAQgDEoQBChxuamdEdTg4ZUNydlhwODZwRDdmSEdjcUZwODg9EiQ0MjllNmU1OS1mOWE2LTU0ZWItOTcxZC1hM2IzN2NkMzBmYTAYACAAKAAwxoii2I4xOOj9nK+xMEDo/ZyvsTBKHHl6TkIwMWNuNTRBN2NSVTB1VCsvUGdtVHRVbz1aAGUAAAAAEokBCAIShAEKHFljU1RvbnZFU1B3cUNzNEwyY3JWaHY2OEw5OD0SJDY1OTU2NDAwLThiNTctNWVjOS04NjcwLTI4MDliZTU5NDIzZRgAIAAoADDGiKLYjjE4rPycr7EwQKz8nK+xMEocb1BWa2h3QlJiVjY1S0NXUjIrSU9OSFdvT3U4PVoAZQAAAAASqAEICxKjAQocTUZycmFPWFQ1RVJUTTl4YVNIYUtnTFRLRitNPRIkYzU2MTc3ZGUtZWE4Ni00NGZiLThkMDItMDg4ZmEyN2FkZDQ0GAAgACgAMM65oMyPMTjZgvaI8TBA2YL2iPEwShxrQi9FeVgzSURWMUtXVHlZY2lLSE1WRWppbW89Wh8iHdwzWTNFU2dZVTBwNmoxaTFoZDdmdDB1TXZ6OWc9ZQAAAAASpwEICBKiAQocSElHM1hSODlBTkF0djFQQ25iY3doSmtSZTdBPRIkMjIxZDA0NGQtZDc0Ny00YzZkLWFkOTEtNGVjYzAzNjkzOWNlGAAgAigCMJL0ovi1MTi5gvaI8TBAm8+i+LUxShxORmt0Qjh1NmdXYTQ5dzI5V2s2Rmo0SVpmb1E9Wh4iHG5kdFFVb3Jueko2R3NXV0NXcVlnSm5POEFFVT1lOPk5MxKnAQgJEqIBChxQYjdBT0lreWdmaklzMWx5S3F1MzJlQ3ozRXc9EiRhN2QxY2M3Yi01NjRlLTQ4NDYtYTI1Zi1jYjI5ZGNhYjI0ZGEYACACKAIwk/Si+LUxOJqC9ojxMECcz6L4tTFKHGxTaXMwWDVDM25idUZrRnl1cnUrRmdSTTR6VT1aHiIccTJaT3V1L3JCSzlMTUlTTFpLYzFNTWwzTVk4PWVdR4+DEqgBCAwSowEKHFJDZHFSU0VLNW5UOEtzQ09HMElSamdubnhqVT0SJGUyNmUzNjFhLTBmM2EtNDRjMi04M2VkLTU1NDNlY2RlOWExNRgAIAAoADDLuaDMjzE43IH2iPEwQNyB9ojxMEocQmJTUDk3eFVRRU4wZzBmelYxYjV2VHBSNkZvPVofIh3uVlJjYXFDVDdlRWVsZXlCR3FvdXlyb25WU3ZrPWUAAAAAEqgBCAoSowEKHFFJMWpGaDBYS3pHalBxOXd5SXJHK0hYTW8zYz0SJGNjYWU0N2E0LTk2ODAtNDhlOS05Zjc0LWRiZWJiMDVlMzhlYxgAIAAoADDNuaDMjzE46IL2iPEwQOiC9ojxMEocRnp0dDhTMTg3M0RPdE1uZkorTXYyVWJ5Nnk0PVofIh24VlpmL3Q1MlFiVkFmYjhtSWFHUmFJVTdYK0JnPWUAAAAAMAA4AA==",
+   "version": 1
+}
