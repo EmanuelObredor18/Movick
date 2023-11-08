@@ -1,7 +1,10 @@
 import 'package:app_peliculas/models/actors_response.dart';
+import 'package:app_peliculas/models/trailers.dart';
 import 'package:app_peliculas/services/movie_provider.dart';
+import 'package:app_peliculas/services/trailer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -9,9 +12,19 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final TrailerProvider trailerProvider = Provider.of<TrailerProvider>(context);
+
     final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     
     final dynamic movie = args['movies'] as dynamic;
+
+    YoutubePlayerController playerController = YoutubePlayerController(
+      initialVideoId: "KecoCV_L1OU",
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        mute: false,
+      )
+    );
 
     return Scaffold(
       body: SafeArea(
@@ -53,6 +66,45 @@ class DetailsScreen extends StatelessWidget {
                       Header(movie: movie),
                       Overview(movie: movie),
                       ActorsSwiper(movie: movie),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        child: Container(
+                          color: Colors.green,
+                          height: 500,
+                          width: double.infinity,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text("Trailer")
+                                ],
+                              ),
+                              FutureBuilder(
+                                future: trailerProvider.getTrailerResponse(movie.id.toString()),
+                                builder: (BuildContext context, AsyncSnapshot<TrailersResponse> snapshot) {
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data!.trailerInfo != null) {
+                                      return YoutubePlayer(
+                                        controller: YoutubePlayerController(
+                                          initialVideoId: snapshot.data!.trailerInfo![0].key,
+                                          flags: YoutubePlayerFlags(
+                                            autoPlay: true,
+                                            mute: false
+                                          )
+                                        ),
+                                      );
+                                    } else {
+                                      return Icon(Icons.movie_outlined);
+                                    }
+                                  } else {
+                                    return CircularProgressIndicator();
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -104,25 +156,32 @@ class ActorsSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 280,
+      height: 290,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Elenco", style: TextStyle(fontSize: 20)),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: const Text("Elenco", style: TextStyle(fontSize: 20)),
+          ),
           const SizedBox(height: 10),
           Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+              itemBuilder: (context, index) => Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)
+                ),
+                clipBehavior: Clip.antiAlias,
+                elevation: 10,
                 child: SizedBox(
                   width: 120,
                   child: Column(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
                         clipBehavior: Clip.antiAlias,
                         child: FadeInImage(
                           placeholder: const AssetImage("assets/loading-bar.gif"),
@@ -134,13 +193,14 @@ class ActorsSlider extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Text(actors![index].originalName, overflow: TextOverflow.clip),
+                      SizedBox(height: 10),
+                      Text(actors![index].originalName, overflow: TextOverflow.clip, textAlign: TextAlign.center,),
                     ],
                   ),
                 ),
               ),
-              itemCount: actors?.length,
+              itemCount: actors!.length,
+              separatorBuilder: (_, __) => SizedBox(width: 20),
             ),
           ),
         ],

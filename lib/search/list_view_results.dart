@@ -7,7 +7,7 @@ class ListViewResults extends StatefulWidget {
 
   final MovieProvider movieProvider;
   final String query;
-  
+
 
   @override
   State<ListViewResults> createState() => _ListViewResultsState();
@@ -16,6 +16,7 @@ class ListViewResults extends StatefulWidget {
 
 class _ListViewResultsState extends State<ListViewResults> {
 
+  bool isLoading = false;
   List<Movie> movies = [];
   ScrollController _scrollController = ScrollController();
 
@@ -47,33 +48,49 @@ class _ListViewResultsState extends State<ListViewResults> {
 
     movies = widget.movieProvider.movies;
 
-    return ListView.separated(
-        controller: _scrollController,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (_, index) => GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context, 
-            '/DetailsScreen',
-            arguments: {'movies' : movies[index]}
-          ),
-          child: ListTile(
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: FadeInImage(
-                placeholder: const AssetImage("assets/loading-bar.gif"), 
-                image: movies[index].fullUrlImage != "" ? NetworkImage(movies[index].fullUrlImage)
-                : AssetImage("assets/camera_placeholder.jpg") as ImageProvider,
-                fit: BoxFit.fill,
-                width: 40,
-                height: 100,
+    return widget.movieProvider.movies.isNotEmpty ? Stack(
+      children: [
+        ListView.separated(
+            controller: _scrollController,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (_, index) => GestureDetector(
+              onTap: () => Navigator.pushNamed(
+                context, 
+                '/DetailsScreen',
+                arguments: {'movies' : movies[index]}
               ),
-            ),
-            title: Text(movies[index].title),
+              child: ListTile(
+                leading: Hero(
+                  tag: movies[index ],
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: FadeInImage(
+                      placeholder: const AssetImage("assets/loading-bar.gif"), 
+                      image: movies[index].fullUrlImage != "" ? NetworkImage(movies[index].fullUrlImage)
+                      : AssetImage("assets/camera_placeholder.jpg") as ImageProvider,
+                      fit: BoxFit.fill,
+                      width: 40,
+                      height: 100,
+                    ),
+                  ),
+                ),
+                title: Text(movies[index].title),
+              ),
+            ), 
+            separatorBuilder: (__, ___) => const SizedBox(height: 10), 
+            itemCount: movies.length,
           ),
-        ), 
-        separatorBuilder: (__, ___) => const SizedBox(height: 10), 
-        itemCount: movies.length
+          Positioned(
+            child: widget.movieProvider.isLoading ? CircularProgressIndicator() : SizedBox(),
+            top: MediaQuery.sizeOf(context).height - 120,
+            right: MediaQuery.sizeOf(context).width * 0.50 - 10,
+            
+          )
+      ],
+    ) 
+      : Center(
+        child: CircularProgressIndicator(),
       );
   }
     
-  }
+}

@@ -1,4 +1,4 @@
-#Sun Oct 22 22:40:48 COT 2023
+#Tue Oct 24 16:56:23 COT 2023
 base.0=C\:\\Users\\obred\\Documents\\GitHub\\Movick\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

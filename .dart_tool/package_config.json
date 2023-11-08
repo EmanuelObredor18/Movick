@@ -50,6 +50,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "flutter_inappwebview",
+      "rootUri": "file:///C:/Users/obred/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_inappwebview-5.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///C:/Users/obred/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.3",
       "packageUri": "lib/",
@@ -176,13 +182,19 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "youtube_player_flutter",
+      "rootUri": "file:///C:/Users/obred/AppData/Local/Pub/Cache/hosted/pub.dev/youtube_player_flutter-8.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "app_peliculas",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-10-21T09:40:43.870994Z",
+  "generated": "2023-11-02T03:22:02.779266Z",
   "generator": "pub",
   "generatorVersion": "3.1.3"
 }

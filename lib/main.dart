@@ -1,4 +1,5 @@
 import 'package:app_peliculas/services/movie_provider.dart';
+import 'package:app_peliculas/services/trailer_provider.dart';
 import 'package:app_peliculas/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:app_peliculas/routes/routes.dart';
@@ -15,7 +16,8 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => MovieProvider(), lazy: false),
+        ChangeNotifierProvider(create: (_) => MovieProvider(), lazy: false),
+        ChangeNotifierProvider(create: (_) => TrailerProvider(), lazy: false)
       ],
       child: const MainApp(),
     );

@@ -1,4 +1,5 @@
 
+import 'package:app_peliculas/helpers/debouncer_bloc.dart';
 import 'package:app_peliculas/models/search_results.dart';
 import 'package:app_peliculas/search/list_view_results.dart';
 import 'package:app_peliculas/services/movie_provider.dart';
@@ -13,6 +14,8 @@ class Search extends SearchDelegate {
   @override
   String? get searchFieldLabel => "Buscar películas";
   
+  final _debouncer = Debouncer(milliseconds: 500);
+
   
   @override
   ThemeData appBarTheme(BuildContext context) {

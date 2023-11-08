@@ -1,5 +1,14 @@
-2023/10/23-19:24:53.512 11b0 Reusing MANIFEST C:\Users\obred\AppData\Local\Temp\flutter_tools.f5e2a00c\flutter_tools_chrome_device.5cf2881c\Default\Asset Store\assets.db/MANIFEST-000001
-2023/10/23-19:24:53.513 11b0 Recovering log #4
-2023/10/23-19:24:53.515 11b0 Level-0 table #6: started
-2023/10/23-19:24:53.624 11b0 Level-0 table #6: 290322 bytes OK
-2023/10/23-19:24:53.688 11b0 Delete type=0 #4
+2023/11/08-12:44:57.191 2550 Reusing MANIFEST C:\Users\obred\AppData\Local\Temp\flutter_tools.76152b55\flutter_tools_chrome_device.7b625085\Default\Asset Store\assets.db/MANIFEST-000001
+2023/11/08-12:44:57.194 2550 Recovering log #10
+2023/11/08-12:44:57.195 2550 (ignoring error) C:\Users\obred\AppData\Local\Temp\flutter_tools.76152b55\flutter_tools_chrome_device.7b625085\Default\Asset Store\assets.db/000010.log: dropping 214758 bytes; Corruption: partial record without end(1)
+2023/11/08-12:44:57.200 2550 Level-0 table #12: started
+2023/11/08-12:44:57.259 2550 Level-0 table #12: 562555 bytes OK
+2023/11/08-12:44:57.298 2550 Delete type=0 #10
+2023/11/08-12:44:57.299 1e18 Compacting 4@0 + 0@1 files
+2023/11/08-12:44:57.365 1e18 Generated table #14@0: 21 keys, 851859 bytes
+2023/11/08-12:44:57.365 1e18 Compacted 4@0 + 0@1 files => 851859 bytes
+2023/11/08-12:44:57.397 1e18 compacted to: files[ 0 1 0 0 0 0 0 ]
+2023/11/08-12:44:57.398 1e18 Delete type=2 #3
+2023/11/08-12:44:57.398 1e18 Delete type=2 #6
+2023/11/08-12:44:57.398 1e18 Delete type=2 #9
+2023/11/08-12:44:57.398 1e18 Delete type=2 #12

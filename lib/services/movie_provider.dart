@@ -1,12 +1,12 @@
+import 'dart:async';
 import 'dart:developer';
 
+import 'package:app_peliculas/helpers/debouncer_bloc.dart';
 import 'package:app_peliculas/models/models.dart';
 import 'package:app_peliculas/models/search_results.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-
 
 class MovieProvider extends ChangeNotifier{
 
@@ -24,18 +24,22 @@ class MovieProvider extends ChangeNotifier{
   List<PopularMoviesResponse> popularMoviesFull = [];
   Map<String, List<Cast>> actors = {};
   List<Movie> movies = [];
-  
+
+  Debouncer _debouncer = Debouncer(milliseconds: 600);
+
   // Indicador de página para la petición de las peliculas populares
 
   int _popularMoviesPage = 0;
   int movieSearchPage = 1;
 
+  // Ultimo query ingresado en la busqueda de peliculas
   String lastQuery = "";
 
+  // Boleano para saber si hay mas resultados en la lista de peliculas de la base de datos
   bool hasMoreResults = true;
+  bool isLoading = false;
 
   // Constructor para lanzar peticiones al levantar la aplicación
-
   MovieProvider() {
     getMovies(infinite: false, movieSection: MovieSection.popular);
     getMovies(infinite: true, movieSection: MovieSection.popular);
@@ -44,6 +48,7 @@ class MovieProvider extends ChangeNotifier{
   // Método encargado de traer los datos de la base de datos.
   // Este trae solamente la primera página de la petición (las peliculas mas populares).
   //* Retorna un Future<String> con los datos de la petición
+  //* Se utiliza el paquete 'http' para las peticiones
 
   Future<String> getJsonDataMovies(String endpoint, [String page = "1"]) async {
     final url = Uri.https(_baseUrl, endpoint, {
@@ -58,8 +63,10 @@ class MovieProvider extends ChangeNotifier{
 
   // Método que hace una petición a la base de datos en busca de las peliculas populares.
   //* Retorna un future con todas las peliculas que el cliente pida.
-  //* El atributo 'infinite' se utiliza para saber si 
-
+  /* 
+    * El atributo 'infinite' se utiliza para saber si la lista de peliculas se va a extender hasta el final
+    * de la lista de peliculas de la base de datos
+  */ 
   getMovies({required bool infinite, required Enum movieSection}) async {
     if (infinite) {
       if (movieSection == MovieSection.popular) {
@@ -80,9 +87,11 @@ class MovieProvider extends ChangeNotifier{
     }
   }
 
+  // Método para traer los actores
+
   Future<Map<String, List<Cast>>> getCast(String movieId) async {
     if (!actors.containsKey(movieId)) {
-      log("Se esta haciendo una petición");
+      log("Se esta haciendo una petición"); // Simple log de depuración
       final url = Uri.https(_baseUrl, "/3/movie/$movieId/credits", {
       "language" : _language,
       "api_key"  : _apiKey,
@@ -123,25 +132,32 @@ class MovieProvider extends ChangeNotifier{
 
 
   Future<List<Movie>> getSearchMovies(String query, {String page = "1"}) async {
-
     if (query == lastQuery) {
-      final searchResponse = await getSearchResults(query, page: page); 
-      if (searchResponse.results.isEmpty) {
-        hasMoreResults = false;
+      isLoading = true;
+      notifyListeners();
+      _debouncer.run(() async {
+        print("Petición");
+        final searchResponse = await getSearchResults(query, page: page); 
+        if (searchResponse.results.isEmpty) {
+          hasMoreResults = false;
+        } else {
+          movies = [...movies, ...searchResponse.results];
+        }
+        isLoading = false;
         notifyListeners();
-      } else {
-        movies = [...movies, ...searchResponse.results];
-        notifyListeners();
-      }
+      });
       return movies;
     } else {
-      final searchResponse = await getSearchResults(query, page: page);
-      query = lastQuery;
-      movieSearchPage = 1;
-      movies = [];
-      movies = searchResponse.results;
-      hasMoreResults = true;
-      notifyListeners();
+      movies.clear();
+      _debouncer.run(() async {
+        print("Petición");
+        final searchResponse = await getSearchResults(query, page: page);
+        query = lastQuery;
+        movieSearchPage = 1;
+        movies = searchResponse.results;
+        hasMoreResults = true;
+        notifyListeners();
+      });
       return movies;
     }
   }

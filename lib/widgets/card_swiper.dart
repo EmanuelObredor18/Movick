@@ -34,11 +34,11 @@ class _CardSwiperState extends State<CardSwiper> {
                 },
               ),
             },
-            child: ClipRRect(
-              clipBehavior: Clip.antiAlias,
-              borderRadius: BorderRadius.circular(15),
-              child: Hero(
-                tag: widget.movies[index],
+            child: Hero(
+              tag: widget.movies[index],
+              child: ClipRRect(
+                clipBehavior: Clip.antiAlias,
+                borderRadius: BorderRadius.circular(15),
                 child: FadeInImage(
                   image: NetworkImage(widget.movies[index].fullUrlImage),
                   placeholder: const AssetImage("assets/camera_placeholder.jpg"),
